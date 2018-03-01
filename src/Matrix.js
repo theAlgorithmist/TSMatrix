@@ -35,7 +35,7 @@ var TSMT$Matrix = (function () {
     /**
      * Construct a new Matrix class
      *
-     * @returns nothing A new (empty) matrix is created
+     * @returns {nothing} A new (empty) matrix is created
      */
     function TSMT$Matrix() {
         this._n = 0; // column count
@@ -47,9 +47,9 @@ var TSMT$Matrix = (function () {
     /**
      * Overwrite the current matrix with an array of (row) arrays.
      *
-     * @param matrix : Array of arrays containing a completely new matrix that will overwrite the current matrix, row by row
+     * @param {Array<Array<number>>} matrix New matrix that will overwrite the current matrix, row by row
      *
-     * @return Nothing
+     * @returns {nothing}
      */
     TSMT$Matrix.prototype.fromArray = function (matrix) {
         this.clear();
@@ -63,7 +63,7 @@ var TSMT$Matrix = (function () {
         /**
          * Convenience accessor to determine whether or not the current matrix has been factorized
          *
-         * return boolean - true if the the matrix has been LU factorized, false otherwise.
+         * returns {boolean} True if the the matrix has been LU factorized, false otherwise.
          */
         get: function () {
             return this._factorized;
@@ -75,7 +75,7 @@ var TSMT$Matrix = (function () {
         /**
          * Access the current row count
          *
-         * @return number - Row count
+         * @returns {number}
          */
         get: function () {
             return this._matrix.length;
@@ -87,7 +87,7 @@ var TSMT$Matrix = (function () {
         /**
          * Access the current column count
          *
-         * @return Int - Column count
+         * @returns {number}
          */
         get: function () {
             return this._n;
@@ -98,9 +98,9 @@ var TSMT$Matrix = (function () {
     /**
      * Access a row of the matrix
      *
-     * @param index : Int - Row index of the matrix
+     * @param {number} index Row index of the matrix
      *
-     * @return Array - A copy of the requested matrix row or an empty array if the index is out of range
+     * @return {Array<number>} A copy of the requested matrix row or an empty array if the index is out of range
      */
     TSMT$Matrix.prototype.getRow = function (index) {
         if (index >= 0 && index < this._matrix.length) {
@@ -113,9 +113,9 @@ var TSMT$Matrix = (function () {
     /**
      * Access a column of the matrix
      *
-     * @param index : Int - Column index of the matrix
+     * @param {number} index Column index of the matrix
      *
-     * @return Array - A copy of the requested matrix column or an empty array if the index is out of range
+     * @returns {Array<number>} A copy of the requested matrix column or an empty array if the index is out of range
      */
     TSMT$Matrix.prototype.getColumn = function (index) {
         var arr = new Array();
@@ -133,7 +133,7 @@ var TSMT$Matrix = (function () {
     /**
      * Clear the current matrix and prepare it to accept new data
      *
-     * @return nothing
+     * @returns {nothing}
      */
     TSMT$Matrix.prototype.clear = function () {
         this._matrix.length = 0;
@@ -143,10 +143,11 @@ var TSMT$Matrix = (function () {
     /**
      * Add a row to the top of the matrix
      *
-     * @param row : Array - Row array
+     * @param {Array<number>} row Row array
      *
-     * @return nothing - The row is added at the top of the matrix.  It is the caller's responsibility for data intergrity,
-     * including consistent column count for each row added to the matrix; the row will not be auto-filled, for example.
+     * @returns nothing - The row is added at the top of the matrix.  It is the caller's responsibility for data
+     * integrity, including consistent column count for each row added to the matrix; the row will not be auto-filled, f
+     * or example.
      */
     TSMT$Matrix.prototype.addRow = function (row) {
         if (row !== undefined && row instanceof Array) {
@@ -158,10 +159,10 @@ var TSMT$Matrix = (function () {
     /**
      * Append a row to the matrix
      *
-     * @param row : Array - Row array
+     * @param {Array<number>} row Row array
      *
-     * @return Nothing - The row is added to the bottom of the matrix.  It is the caller's responsibility for data intergrity,
-     * including consistent column count for each row added to the matrix
+     * @returns {nothing} The row is added to the bottom of the matrix.  It is the caller's responsibility for data
+     * integrity, including consistent column count for each row added to the matrix
      */
     TSMT$Matrix.prototype.appendRow = function (row) {
         if (row !== undefined && row instanceof Array) {
@@ -173,12 +174,12 @@ var TSMT$Matrix = (function () {
     /**
      * Insert a row into the matrix
      *
-     * @param index : number - Row index (zero-based), which must be between zero and the current row count minus one.
+     * @param {number} index Row index (zero-based), which must be between zero and the current row count minus one.
      *
-     * @param row : Array - Row Array
+     * @param {Array<number>} row Row Array
      *
-     * @return Nothing - The row is added at specified index in the matrix.  It is the caller's responsibility for data
-     * intergrity, including consistent column count for each row added to the matrix
+     * @returns {nothing} The row is added at specified index in the matrix.  It is the caller's responsibility for
+     * data integrity, including consistent column count for each row added to the matrix
      */
     TSMT$Matrix.prototype.insertRow = function (index, row) {
         if (index >= 0 && index < this._matrix.length) {
@@ -192,7 +193,7 @@ var TSMT$Matrix = (function () {
     /**
      * Remove the first row of the matrix
      *
-     * @return Nothing - The first row of the matrix is removed.
+     * @returns {nothing} The first row of the matrix is removed.
      */
     TSMT$Matrix.prototype.removeFirst = function () {
         if (this._matrix.length > 0) {
@@ -203,18 +204,19 @@ var TSMT$Matrix = (function () {
     /**
      * Remove the last row of the matrix
      *
-     * @return Nothing - The last row of the matrix is removed.
+     * @returns {nothing} The last row of the matrix is removed.
      */
     TSMT$Matrix.prototype.removeLast = function () {
-        if (this._matrix.length > 0)
+        if (this._matrix.length > 0) {
             this._matrix.pop();
+        }
     };
     /**
      * Delete a row from an arbitrary index in the matrix
      *
-     * @param index : number - Row index (zero-based), which must be between zero and the current row count minus one.
+     * @param {number} index  Row index (zero-based), which must be between zero and the current row count minus one.
      *
-     * @return Nothing - The row is deleted from the specified row index.
+     * @returns {nothing} The row is deleted from the specified row index.
      */
     TSMT$Matrix.prototype.deleteRow = function (index) {
         if (index >= 0 && index < this._matrix.length) {
@@ -231,14 +233,15 @@ var TSMT$Matrix = (function () {
         var t = new TSMT$Matrix();
         var m = this.m;
         var i;
-        for (i = 0; i < m; ++i)
+        for (i = 0; i < m; ++i) {
             t.appendRow(this._matrix[i]);
+        }
         return t;
     };
     /**
      * Sum the columns of the current matrix
      *
-     * @return Array<number> - Sum of each column of the current matrix
+     * @returns {Array<number>} Sum of each column of the current matrix
      */
     TSMT$Matrix.prototype.sumColumns = function () {
         var m = this.m;
@@ -264,7 +267,7 @@ var TSMT$Matrix = (function () {
     /**
      * Sum the rows of the current matrix
      *
-     * @return Array<number> - Sum of each row of the current matrix
+     * @returns {Array<number>} Sum of each row of the current matrix
      */
     TSMT$Matrix.prototype.sumRows = function () {
         var m = this.m;
@@ -288,14 +291,15 @@ var TSMT$Matrix = (function () {
     /**
      * Add a matrix to the current matrix and overwrite the current elements
      *
-     * @param m : Matrix
+     * @param {TSMT$Matrix} m Matrix to be added to the current Matrix
      *
-     * @return Nothing - The current matrix is overwritten with the element-wise sum of the current and input matrices.
+     * @returns {nothing} The current matrix is overwritten with the element-wise sum of the current and input matrices.
      * The current matrix is unchanged if the input matrix dimensions do not match the current matrix dimensions
      */
     TSMT$Matrix.prototype.add = function (matrix) {
-        if (matrix.m != this._matrix.length || matrix.n != this._n)
+        if (!matrix || matrix.m != this._matrix.length || matrix.n != this._n) {
             return;
+        }
         var m = this._matrix.length;
         var i;
         var j;
@@ -313,13 +317,13 @@ var TSMT$Matrix = (function () {
     /**
      * Add a matrix to the current matrix and return the result in a new Matrix
      *
-     * @param m : TSMT$Matrix Reference to a TSMT Matrix instance
+     * @param {TSMT$Matrix} m Matrix to be added to the current Matrix
      *
-     * @return Matrix - A new TSMT Matrix with the element-wise sum of the current and input matrices.  The return is
+     * @returns {TSMT$Matrix} A new Matrix with the element-wise sum of the current and input matrices.  The return is
      * null if the input matrix dimensions do not match the current matrix dimensions
      */
     TSMT$Matrix.prototype.addTo = function (matrix) {
-        if (matrix.m != this._matrix.length || matrix.n != this._n) {
+        if (!matrix || matrix.m != this._matrix.length || matrix.n != this._n) {
             return null;
         }
         var theMatrix = this.clone();
@@ -329,14 +333,14 @@ var TSMT$Matrix = (function () {
     /**
      * Subtract a matrix from the current matrix and overwrite the current elements
      *
-     * @param m : TSMT$Matrix Reference to a TSMT Matrix instance
+     * @param {TSMT$Matrox} m Matrix to be subtracted from the current Matrix
      *
-     * @return Nothing - The current matrix is overwritten with the element-wise subtraction of the current and input
+     * @returns {nothing} The current matrix is overwritten with the element-wise subtraction of the current and input
      * matrices (i.e. a <- a-b).  The current matrix is unchanged if the input matrix dimensions do not match the current
      * matrix dimensions
      */
     TSMT$Matrix.prototype.subtract = function (matrix) {
-        if (matrix.m != this._matrix.length || matrix.n != this._n) {
+        if (!matrix || matrix.m != this._matrix.length || matrix.n != this._n) {
             return;
         }
         var m = this._matrix.length;
@@ -356,10 +360,10 @@ var TSMT$Matrix = (function () {
     /**
      * Subtract a matrix from the current matrix and return the result in a new Matrix
      *
-     * @param m : Matrix Reference to a TSMT Matrix instance
+     * @param {TSMT$Matrix} m Matrix to be subtracted from the current Matrix
      *
-     * @return Matrix - A new Matrix with the element-wise subtraction of the current and input matrices, i.e. c = a - b.
-     * The return is null if the input matrix dimensions do not match the  current matrix dimensions
+     * @returns {TSMT$Matrix} A new Matrix with the element-wise subtraction of the current and input matrices,
+     * i.e. c = a - b.  The return is null if the input matrix dimensions do not match the  current matrix dimensions
      */
     TSMT$Matrix.prototype.subtractFrom = function (matrix) {
         if (matrix.m != this._matrix.length || matrix.n != this._n) {
@@ -372,10 +376,10 @@ var TSMT$Matrix = (function () {
     /**
      * Multiply the current matrix by a scalar and overwrite the elements
      *
-     * @param s : number - Scalar for element-wise multiplication
+     * @param {number} s Scalar for element-wise multiplication
      *
-     * @return Nothing - The current matrix is overwritten with the element-wise multiplication by the input scalar.
-     * The current matrixis unchanged if the scalar is invalid.  Note that overflow is still possible for a sufficiently
+     * @returns {nothing} The current matrix is overwritten with the element-wise multiplication by the input scalar.
+     * The current matrix is unchanged if the scalar is invalid.  Note that overflow is still possible for a sufficiently
      * large scalar value and matrix elements.
      */
     TSMT$Matrix.prototype.timesScalar = function (s) {
@@ -397,14 +401,13 @@ var TSMT$Matrix = (function () {
     /**
      * Transpose the current matrix (in-place)
      *
-     * @return Nothing - The current matrix is transposed in-place, which transforms an m x n matrix into a n x m matrix.
+     * @returns {nothing} The current matrix is transposed in-place, which transforms an m x n matrix into a n x m matrix.
      */
     TSMT$Matrix.prototype.transpose = function () {
         var temp = this.clone();
         var m = this._n; // new number of rows
         var n = this.m; // new number of columns
         var i;
-        var j;
         var col;
         this.clear();
         for (i = 0; i < m; ++i) {
@@ -417,7 +420,7 @@ var TSMT$Matrix = (function () {
     /**
      * Return the transpose of the current matrix
      *
-     * @return TSMT$Matrix - Transpose of the current matrix
+     * @returns {TSMT$Matrix} Transpose of the current matrix
      */
     TSMT$Matrix.prototype.transposeInto = function () {
         var t = this.clone();
@@ -427,14 +430,14 @@ var TSMT$Matrix = (function () {
     /**
      * Multiply the current matrix by a vector and return the result in an Array
      *
-     * @param v : Array<number> - Input vector whose length matches the number of columns in the current array
+     * @param {Array<number>} v Input vector whose length matches the number of columns in the current array
      *
-     * @return Array<number> - If the current matrix is A and the input vector is v (A is m x n and v is n x 1) then the
-     * return is the matrix-vector product, Av.  If v contains less than n items, the return array is empty.  If it contains
-     * more than n items, the excess number is ignored.
+     * @returns {Array<number>} If the current matrix is A and the input vector is v (A is m x n and v is n x 1) then
+     * the return is the matrix-vector product, Av.  If v contains less than n items, the return array is empty.
+     * If it contains more than n items, the excess number is ignored.
      */
     TSMT$Matrix.prototype.timesVector = function (v) {
-        if (v === undefined || !(v instanceof Array)) {
+        if (v === undefined || v == null || Object.prototype.toString.call(v) != '[object Array]') {
             return new Array();
         }
         if (v.length < this._n) {
@@ -459,14 +462,14 @@ var TSMT$Matrix = (function () {
     /**
      * Multiply the current matrix by another matrix and store the result in the current matrix
      *
-     * @param m : Matrix
+     * @param {TSMT$Matrix} m Input Matrix to be multiplied by the current matrix
      *
-     * @return Nothing - The matrices must be of appropriate dimensions for the multiplication.  If the current matrix
+     * @returns {nothing} The matrices must be of appropriate dimensions for the multiplication.  If the current matrix
      * is m x n, the input matrix must be n x p and the result will be a new, m x p matrix.  There is little error-checking
      * for performance reasons - the current matrix is unchanged if the operation is not defined.
      */
     TSMT$Matrix.prototype.multiply = function (matrix) {
-        if (this._n != matrix.m) {
+        if (!matrix || this._n != matrix.m) {
             return;
         }
         var t = this.clone();
@@ -499,14 +502,14 @@ var TSMT$Matrix = (function () {
     /**
      * Multiply the current matrix by another matrix and store the result in a new Matrix
      *
-     * @param m : Matrix
+     * @param {TSMT$Matrix} m Input Matrix to be multiplied by the current Matrix
      *
-     * @return Matrix - The matrices must be of appropriate dimensions for the multiplication.  If the current matrix is m x n,
-     * the input matrix must be n x p and the result will be a new, m x p matrix.  A new 0x0 Matrix is returned if the operation
-     * is not defined.
+     * @returns {TSMT$Matrix} The matrices must be of appropriate dimensions for the multiplication.  If the current
+     * matrix is m x n, the input matrix must be n x p and the result will be a new, m x p matrix.  A new 0x0 Matrix is
+     * returned if the operationis not defined.
      */
     TSMT$Matrix.prototype.multiplyInto = function (matrix) {
-        if (this._n != matrix.m) {
+        if (!matrix || this._n != matrix.m) {
             return new TSMT$Matrix();
         }
         var t = this.clone();
@@ -516,14 +519,14 @@ var TSMT$Matrix = (function () {
     /**
      * Solve a linear system of equations, Ax = b with the current matrix being a n x n coefficient matrix
      *
-     * @param b : Array - Right hand side vector
+     * @param {Array<number>} b Right-hand side vector
      *
-     * @return Array - Solution vector or empty array if the current matrix is not square, empty, or obviously singular.
-     * Note that the current matrix will be overwritten by its LU factorization.  There is no error-checking on inputs
-     * for performance reasons.
+     * @returns {Array<number>} Solution vector or empty array if the current matrix is not square, empty, or obviously
+     * singular. Note that the current matrix will be overwritten by its LU factorization.  There is no error-checking on
+     * inputs for performance reasons.
      *
-     * This method may be called multiple times with different right-hand sides and the matrix will be factorized only once.
-     * Clone the current matrix if you wish to use the original matrix again after solution.
+     * This method may be called multiple times with different right-hand sides and the matrix will be factorized only
+     * once. Clone the current matrix if you wish to use the original matrix again after solution.
      */
     TSMT$Matrix.prototype.solve = function (b) {
         var status = !this._factorized ? this.__LU() : 0;
@@ -548,7 +551,7 @@ var TSMT$Matrix = (function () {
         var i;
         var j;
         var k;
-        var imax; // think result from good, old-fashioned Linpack IDAMAX
+        var imax; // think result from Linpack IDAMAX
         var b;
         var temp;
         var z;
